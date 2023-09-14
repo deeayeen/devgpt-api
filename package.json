@@ -1,0 +1,26 @@
+{
+  "name": "devgpt-api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@types/node": "18.11.15",
+    "@types/react": "18.0.26",
+    "@types/react-dom": "18.0.9",
+    "eslint": "8.29.0",
+    "eslint-config-next": "13.0.6",
+    "next": "^13.4.16",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "4.9.4",
+    "@azure/openai": "^1.0.0-beta.5",
+    "@supabase/supabase-js": "^2.33.2",
+    "@types/express": "^4.17.17",
+    "connect-timeout": "^1.9.0"
+  }
+}
