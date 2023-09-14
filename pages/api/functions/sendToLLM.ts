@@ -29,7 +29,7 @@ const sendToLLM = async ({
   }
 
   //we are swapping this out for Azure very soon
-  /*const ORResponse = await sendOpenRouter({
+  const ORResponse = await sendOpenRouter({
     stream,
     model: modelParsed.OpenRouter,
     role,
@@ -37,26 +37,26 @@ const sendToLLM = async ({
     call,
     functions,
     temperature,
-  });*/
-
-  //if (ORResponse.error) {
-  //use OpenAI response
-  const OAIResponse = await sendOpenAI({
-    stream,
-    model: modelParsed.OpenAI,
-    role,
-    content,
-    call,
-    functions,
-    temperature,
   });
 
-  //@ts-ignore
-  return { response: OAIResponse?.response };
-  /*} else {
+  if (ORResponse.error) {
+    //use OpenAI response
+    const OAIResponse = await sendOpenAI({
+      stream,
+      model: modelParsed.OpenAI,
+      role,
+      content,
+      call,
+      functions,
+      temperature,
+    });
+
+    //@ts-ignore
+    return { response: OAIResponse?.response };
+  } else {
     //use OpenRouter response
     return { response: ORResponse?.response };
-  }*/
+  }
 };
 
 export default sendToLLM;
