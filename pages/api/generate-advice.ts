@@ -1,7 +1,10 @@
-import sendToLLM from "./functions/sendToLLM";
+import openAIStream from "./functions/openAIStream";
+import { OpenAIStream, StreamingTextResponse } from "ai";
+
+export const runtime = "edge";
 
 export default async function handler(req: any, res: any) {
-  const parsedBody = JSON.parse(req.body);
+  const parsedBody = await req.json();
   const { prompt, language } = parsedBody;
 
   if (!prompt || !language) {
@@ -9,8 +12,8 @@ export default async function handler(req: any, res: any) {
     return;
   }
 
-  const code_answer = await sendToLLM({
-    stream: false,
+  const code_answer = await openAIStream({
+    stream: true,
     model: "gpt-3.5-turbo",
     temperature: 0.4,
     role: `
@@ -25,5 +28,6 @@ export default async function handler(req: any, res: any) {
                   `,
   });
 
-  res.status(200).send({ data: code_answer.response });
+  const stream = OpenAIStream(code_answer);
+  return new StreamingTextResponse(stream);
 }
